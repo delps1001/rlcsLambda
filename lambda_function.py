@@ -68,14 +68,9 @@ def get_region_tables_sync():
 
 def lambda_handler(event, context):
     get_region_tables_sync()
-    na_table = json.dumps(tables['NA'])
-    eu_table = json.dumps(tables['EU'])
     return {
         'statusCode': 200,
-        'body': {
-            'NA': na_table,
-            'EU': eu_table
-        }
+        'body': json.dumps(tables)
     }
 
 
