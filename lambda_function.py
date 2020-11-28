@@ -59,9 +59,19 @@ async def get_table(url, params, region):
             return team_entries
 
 
+async def write_html_to_file(html_unescaped):
+    parsed_html_encoded = BeautifulSoup(html_unescaped, features="html.parser")
+    parsed_html_encoded.encode('utf8')
+    f = open('eu_html.html', 'w', encoding='utf8')
+    f.write(str(parsed_html_encoded.prettify(formatter='html5')))
+    f.close()
+
+
 def filter_results(parsed_html, region):
-    data_toggle_area_content = '6'
-    if region in [Region.NA, Region.OCE]:
+    data_toggle_area_content = '12'
+    if region in [Region.EU]:
+        data_toggle_area_content = '8'
+    if region in [Region.OCE]:
         data_toggle_area_content = '7'
     elif region in [Region.SAM]:
         data_toggle_area_content = '4'
